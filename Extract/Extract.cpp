@@ -10,9 +10,10 @@
 #include "leveldb/db.h"
 #include <iostream>
 #include <fstream>
-
+#include "caffe.pb.h"
 using namespace std;
 using namespace leveldb;
+using namespace caffe;
 
 int main(int argc, char* argv[])
 {
@@ -34,25 +35,32 @@ int main(int argc, char* argv[])
         cerr << status.ToString() << endl;
         return -1;
     }
-    //caffe::Datum d;
-    ofstream file(outfile, ios::binary);
+    caffe::Datum d;
+    ofstream file(outfile); // , ios::binary);
     // iteration
     leveldb::Iterator* it = db->NewIterator(leveldb::ReadOptions());
     for (it->SeekToFirst(); it->Valid(); it->Next())
     {
-        //d.clear_float_data();
-        //d.clear_data();
-        //d.ParseFromString(it->value().ToString());
-        //file << it->key().ToString() << ":" << it->value().ToString() << endl;
-        int k = atoi(it->key().ToString().c_str());
+        //int k = atoi(it->key().ToString().c_str());
+        string k = it->key().ToString();
         cout << k << endl;
+        // parse protobuf
+        d.clear_float_data();
+        d.clear_data();
+        d.ParseFromString(it->value().ToString());
+        // output:
+        file << k << "\t";
+        for (int i = 0; i< d.height(); i++)
+            file << "\t" << d.float_data(i);
+        file << endl;
+        // for binary:
+        /*
         string data = it->value().ToString();
         int l = data.length();
         file.write((const char*)&k, sizeof(k));
         file.write((const char*)&l, sizeof(l));
         file.write(data.c_str(), l);
-        //for (int i = 0; i< d.height(); i++)
-        //cout << " " << d.float_data(i);
+        */
     }
     /*if (!status.ok())
     {
