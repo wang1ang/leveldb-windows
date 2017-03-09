@@ -50,7 +50,8 @@ int main(int argc, char* argv[])
         d.ParseFromString(it->value().ToString());
         // output:
         file << k << "\t";
-        for (int i = 0; i< d.height(); i++)
+        auto size = d.float_data_size(); //d.channels() * d.height() * d.width();
+        for (int i = 0; i < size; i++)
             file << "\t" << d.float_data(i);
         file << endl;
         // for binary:
