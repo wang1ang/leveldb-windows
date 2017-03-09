@@ -15,6 +15,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PackageTest", "PackageTest\PackageTest.vcxproj", "{893A8EC0-5BB4-4D90-96C6-2FEB0C0C313D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Extract", "Extract\Extract.vcxproj", "{5279E753-0E98-4F4B-993C-634F89FA9463}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3E283F37-A4ED-41B7-A3E6-A2D89D131A30} = {3E283F37-A4ED-41B7-A3E6-A2D89D131A30}
+		{5B593D71-934A-4D5C-9581-1F89BB839E48} = {5B593D71-934A-4D5C-9581-1F89BB839E48}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libprotobuf", "protobuf-3.1.0\vsproject2013\libprotobuf.vcxproj", "{3E283F37-A4ED-41B7-A3E6-A2D89D131A30}"
 EndProject
